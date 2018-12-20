@@ -27,7 +27,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>com.hexad.parkinglot.HexadMain</mainClass>
+							<mainClass>com.hexad.HexadMain</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
