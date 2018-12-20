@@ -1,7 +1,11 @@
 package com.hexad;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import com.hexad.parkinglot.exception.CommandNotFound;
 import com.hexad.parkinglot.exception.SlotIsNotEmpty;
@@ -12,8 +16,32 @@ public class HexadMain {
 
 	public static void main(String[] args) throws SlotIsNotEmpty {
 		System.out.println("PARKING LOT STARTED");
+		Commands cmds=new Commands();
 		
-		//MultiStoreyParking multiStoreyParking=MultiStoreyParking.getInstance(maxParkingSlot);
+		if(args.length>0) {
+			try (Stream<String> stream = Files.lines(Paths.get(args[0]))) {
+
+				stream.forEach(cmd->{
+					String[] paramIn =cmd.split(" ");
+					try {
+						ITicket iTicket=cmds.getCommandsToExecute(paramIn[0]);
+						
+						String[] params=new String[paramIn.length-1];
+						for(int i=0;i<params.length;i++)
+							params[i]=paramIn[i+1];
+						
+						iTicket.execute(params);
+					} catch (CommandNotFound e) {
+					} catch (SlotIsNotEmpty e) {
+					}
+				});
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
 		
 		
 		while(true) {
@@ -21,7 +49,7 @@ public class HexadMain {
 			String[] paramIn = scanner.nextLine().split(" ");
 			
 			
-			Commands cmds=new Commands();
+			
 			try {
 				ITicket iTicket=cmds.getCommandsToExecute(paramIn[0]);
 				
