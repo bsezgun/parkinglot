@@ -16,7 +16,7 @@ import com.hexad.parkinglot.ipark.ParkCarToSlot;
 import com.hexad.parkinglot.ipark.StatusPark;
 import com.hexad.parkinglot.parking.MultiStoreyParking;
 
-public class ParkCarToSlotTest {
+public class LeaveCarSlotTest {
 
 	MultiStoreyParking multiStoreyParking;
 	ITicket iTicket;
@@ -29,7 +29,7 @@ public class ParkCarToSlotTest {
 	@Before
 	public void setUp() {
 		multiStoreyParking=MultiStoreyParking.getInstance();
-		multiStoreyParking.setMaxParkingSlot(BigDecimal.valueOf(6));
+		
 		iTicket=new ParkCarToSlot();
 		iTicketStatus=new StatusPark();
 		iTicketLeave=new LeaveCarFromSlot();
@@ -37,22 +37,27 @@ public class ParkCarToSlotTest {
 		iTicketFinderSlotNumbersForCarsWithColour=new ParkCarFinder(2);
 		iTicketFinderSlotNumberForRegistrationNumber=new ParkCarFinder(3);
 		
+		multiStoreyParking.setMaxParkingSlot(BigDecimal.valueOf(50));
+		String[] color= {"Red","Blue","White","Black","Green","Gray"};
+		for (int i = 0; i < 50; i++) {
+			try {
+				iTicket.execute(new String[]{"KA-01-HH-"+Math.round(Math.random()*1000),color[Integer.parseInt(""+Math.round((Math.random()*5)))]});
+			} catch (SlotIsNotEmpty e) {
+				
+			}
+		}
+		
 	}
 
 	@Test
-	public void parkToCar()  {
+	public void leaveToCar()  {
 		
 		try {
-			iTicket.execute(new String[]{"KA-01-HH-1234","Red"});
-			iTicket.execute(new String[]{"KA-01-HH-9999","White"});
-			iTicket.execute(new String[]{"KA-01-BB-0001","White"});
-			iTicket.execute(new String[]{"KA-01-HH-7777","Black"});
-			iTicket.execute(new String[]{"KA-01-HH-2701","White"});
-			iTicket.execute(new String[]{"KA-01-HH-3141","Yellow"});
+			
 			iTicketLeave.execute(new String[]{"4"});
+			iTicketLeave.execute(new String[]{"5"});
+			iTicketLeave.execute(new String[]{"25"});
 			iTicketStatus.execute();
-			iTicket.execute(new String[]{"KA-01-P-333","White"});
-			iTicket.execute(new String[]{"DL-12-AA-9999","White"});
 		} catch (SlotIsNotEmpty e) {
 			
 		}
@@ -63,34 +68,10 @@ public class ParkCarToSlotTest {
 			
 		}
 		
-		try {
-			iTicketFinderSlotNumbersForCarsWithColour.execute(new String[]{"White"});
-		} catch (SlotIsNotEmpty e) {
-			
-		}
-		
-		try {
-			iTicketFinderSlotNumberForRegistrationNumber.execute(new String[]{"KA-01-HH-3141"});
-		} catch (SlotIsNotEmpty e) {
-			
-		}
-		
-		try {
-			iTicketFinderSlotNumberForRegistrationNumber.execute(new String[]{"MH-04-AY-1111"});
-		} catch (SlotIsNotEmpty e) {
-			
-		}
-		
-		
-		
-		
-		assertEquals(BigDecimal.valueOf(6), multiStoreyParking.getMaxParkingSlot());
 	}
 	
 	@After
 	public void statusToPark() throws SlotIsNotEmpty {
 		//iTicketStatus.execute();
 	}
-	
-	
 }
