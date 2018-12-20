@@ -81,15 +81,7 @@ public class ParkCarToSlotTest {
 			
 		}
 		
-		
-		
-		
 		assertEquals(BigDecimal.valueOf(6), multiStoreyParking.getMaxParkingSlot());
-	}
-	
-	@After
-	public void statusToPark() throws SlotIsNotEmpty {
-		//iTicketStatus.execute();
 	}
 	
 	
