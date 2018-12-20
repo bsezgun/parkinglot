@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.hexad.parkinglot.entity.Car;
+import com.hexad.parkinglot.entity.ResultPark;
 import com.hexad.parkinglot.exception.SlotIsNotEmpty;
 import com.hexad.parkinglot.parking.MultiStoreyParking;
 
@@ -17,7 +18,7 @@ public class ParkCarFinder implements ITicket {
 	}
 
 	@Override
-	public void execute(String... args) throws SlotIsNotEmpty {
+	public ResultPark execute(String... args) throws SlotIsNotEmpty {
 		
 		switch (finderMethod) {
 		case 1:
@@ -34,7 +35,7 @@ public class ParkCarFinder implements ITicket {
 			break;
 		}
 		
-		
+		return null;
 		
 	}
 

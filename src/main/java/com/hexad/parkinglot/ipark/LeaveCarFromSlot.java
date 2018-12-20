@@ -3,6 +3,7 @@ package com.hexad.parkinglot.ipark;
 import java.util.Optional;
 
 import com.hexad.parkinglot.entity.Car;
+import com.hexad.parkinglot.entity.ResultPark;
 import com.hexad.parkinglot.exception.SlotIsNotEmpty;
 import com.hexad.parkinglot.parking.MultiStoreyParking;
 
@@ -11,7 +12,7 @@ public class LeaveCarFromSlot implements ITicket {
 	
 
 	@Override
-	public void execute(String... params) throws SlotIsNotEmpty {
+	public ResultPark execute(String... params) throws SlotIsNotEmpty {
 	     Optional<Car> car=MultiStoreyParking.getInstance()
 	     		.getParkingSlotMap()
 	     		.stream().filter(c->c.getSlotNumber().intValue()==Integer.parseInt(params[0]))
@@ -22,9 +23,13 @@ public class LeaveCarFromSlot implements ITicket {
 	     		.getParkingSlotMap().remove(car.get());
 	     
 	     	System.out.println("Slot number "+params[0]+" is free");
+	     	return new ResultPark("Slot number "+params[0]+" is free",car);
 	     }else {
 	    	 System.out.println("NO CARS FOUND AT THIS SLOT");
+	    	 return new ResultPark("NO CARS FOUND AT THIS SLOT",car);
 	     }
+	     
+	     
 	}
 	
 	
