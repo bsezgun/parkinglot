@@ -18,8 +18,5 @@ public class StatusPark implements ITicket {
                  });
 		
 		return null;
-		
 	}
-
-	
 }
