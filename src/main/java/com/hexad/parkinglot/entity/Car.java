@@ -2,7 +2,7 @@ package com.hexad.parkinglot.entity;
 
 import java.math.BigDecimal;
 
-public class Car {
+public class Car implements Comparable<Car>{
 
 	private BigDecimal slotNumber;
 	private String colour;
@@ -33,6 +33,16 @@ public class Car {
 	public void setRegistrationNumber(String registrationNumber) {
 		this.registrationNumber = registrationNumber;
 	}
+
+	@Override
+	public int compareTo(Car car) {
+		return slotNumber.compareTo(car.getSlotNumber());
+	}
+
+	
+
+	
+	
 	
 	
 }
