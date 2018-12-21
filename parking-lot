@@ -1,0 +1,11 @@
+#!/bin/bash
+mvn clean
+wait
+echo "mvn clean finished and install started"
+mvn  install
+wait
+echo "mvn install finished and compile started"
+mvn compile
+wait
+echo "mvn compile finished and program will start"
+mvn exec:java -Dexec.mainClass=com.hexad.HexadMain -Dexec.args="file_inputs.txt"
