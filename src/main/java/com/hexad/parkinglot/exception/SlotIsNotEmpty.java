@@ -11,5 +11,11 @@ public class SlotIsNotEmpty extends Exception {
 		System.out.println("Sorry, parking lot is full");
 	}
 
+	@Override
+	public String getMessage() {
+		return "Park is Full";
+	}
+
+	
 	
 }
