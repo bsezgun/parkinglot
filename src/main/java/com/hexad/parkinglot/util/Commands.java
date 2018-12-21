@@ -10,8 +10,6 @@ import com.hexad.parkinglot.ipark.StatusPark;
 
 public class Commands {
 
-	
-	
 	public ITicket getCommandsToExecute(String command) throws CommandNotFound {
 		if(command.equals("create_parking_lot"))
 			return new CreateParkingLot();
@@ -27,16 +25,7 @@ public class Commands {
 			return new ParkCarFinder(2);
 		else if(command.equals("slot_number_for_registration_number"))
 			return new ParkCarFinder(3);
-		
-		
 		else
 			throw new CommandNotFound();
-	
-		
-		
-		
-		
-		
-		
 	}
 }
