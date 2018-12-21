@@ -1,13 +1,15 @@
 package com.hexad.parkinglot;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.TreeSet;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.hexad.parkinglot.entity.ResultPark;
 import com.hexad.parkinglot.exception.SlotIsNotEmpty;
 import com.hexad.parkinglot.ipark.ITicket;
 import com.hexad.parkinglot.ipark.LeaveCarFromSlot;
@@ -28,7 +30,6 @@ public class LeaveCarSlotTest {
 	
 	@Before
 	public void setUp() {
-		multiStoreyParking=MultiStoreyParking.getInstance();
 		
 		iTicket=new ParkCarToSlot();
 		iTicketStatus=new StatusPark();
@@ -37,6 +38,8 @@ public class LeaveCarSlotTest {
 		iTicketFinderSlotNumbersForCarsWithColour=new ParkCarFinder(2);
 		iTicketFinderSlotNumberForRegistrationNumber=new ParkCarFinder(3);
 		
+		multiStoreyParking=MultiStoreyParking.getInstance();
+		multiStoreyParking.setParkingSlotMap(new TreeSet<>());
 		multiStoreyParking.setMaxParkingSlot(BigDecimal.valueOf(50));
 		String[] color= {"Red","Blue","White","Black","Green","Gray"};
 		for (int i = 0; i < 50; i++) {
@@ -53,20 +56,21 @@ public class LeaveCarSlotTest {
 	public void leaveToCar()  {
 		
 		try {
+			ResultPark rp=iTicketLeave.execute(new String[]{"4"});
+			assertTrue(rp.getCar().getSlotNumber()==BigDecimal.valueOf(4));
 			
-			iTicketLeave.execute(new String[]{"4"});
-			iTicketLeave.execute(new String[]{"5"});
-			iTicketLeave.execute(new String[]{"25"});
-			iTicketStatus.execute();
+			rp=iTicketLeave.execute(new String[]{"5"});
+			assertTrue(rp.getStatus().equals("Leaved"));
+			
+			rp=iTicketLeave.execute(new String[]{"25"});
+			assertTrue(rp.getStatus().equals("Leaved"));
+			
+			rp=iTicketStatus.execute();
 		} catch (SlotIsNotEmpty e) {
 			
 		}
 		
-		try {
-			iTicketFinderRegistrationNumbersForCarsWithColour.execute(new String[]{"White"});
-		} catch (SlotIsNotEmpty e) {
-			
-		}
+		
 		
 	}
 	
