@@ -1,18 +1,18 @@
 package com.hexad.parkinglot.parking;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.hexad.parkinglot.entity.Car;
 
 public class MultiStoreyParking {
 
-	private List<Car> 				parkingSlotMap;
+	private Set<Car> 				parkingSlotMap;
 	private BigDecimal 				maxParkingSlot;
 	
 	private MultiStoreyParking() {
-		parkingSlotMap=new ArrayList<>();
+		parkingSlotMap=new TreeSet<>();
 	}
 	
 	private static MultiStoreyParking multiStoreyParking;
@@ -24,14 +24,6 @@ public class MultiStoreyParking {
 		return multiStoreyParking;
 	}
 
-	
-
-	public List<Car> getParkingSlotMap() {
-		return parkingSlotMap;
-	}
-
-
-
 	public BigDecimal getMaxParkingSlot() {
 		return maxParkingSlot;
 	}
@@ -39,4 +31,14 @@ public class MultiStoreyParking {
 	public void setMaxParkingSlot(BigDecimal maxParkingSlot) {
 		this.maxParkingSlot = maxParkingSlot;
 	}
+
+	public Set<Car> getParkingSlotMap() {
+		return parkingSlotMap;
+	}
+
+	public void setParkingSlotMap(Set<Car> parkingSlotMap) {
+		this.parkingSlotMap = parkingSlotMap;
+	}
+	
+	
 }
