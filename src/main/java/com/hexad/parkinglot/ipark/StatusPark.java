@@ -12,10 +12,9 @@ public class StatusPark implements ITicket {
 		MultiStoreyParking multiStoreyParking=MultiStoreyParking.getInstance();
 		System.out.printf("%-10s%-20s%-20s\n","Slot No.","Registration No","Colour");
 		
-		multiStoreyParking.getParkingSlotMap().stream().sorted()
-                .forEach((c)->{
-                		System.out.printf("%-10s%-20s%-20s\n",c.getSlotNumber().toString(),c.getRegistrationNumber(),c.getColour());
-                 });
+		multiStoreyParking.getParkingSlotMap()
+							.stream()
+							.forEach(System.out::println);
 		
 		return null;
 	}

@@ -9,8 +9,6 @@ import com.hexad.parkinglot.parking.MultiStoreyParking;
 
 public class LeaveCarFromSlot implements ITicket {
 
-	
-
 	@Override
 	public ResultPark execute(String... params) throws SlotIsNotEmpty {
 	     Optional<Car> car=MultiStoreyParking.getInstance()
@@ -23,15 +21,10 @@ public class LeaveCarFromSlot implements ITicket {
 	     		.getParkingSlotMap().remove(car.get());
 	     
 	     	System.out.println("Slot number "+params[0]+" is free");
-	     	return new ResultPark("Slot number "+params[0]+" is free",car);
+	     	return new ResultPark("Leaved",car.get());
 	     }else {
 	    	 System.out.println("NO CARS FOUND AT THIS SLOT");
-	    	 return new ResultPark("NO CARS FOUND AT THIS SLOT",car);
+	    	 return new ResultPark("NOT FOUND");
 	     }
-	     
-	     
-	}
-	
-	
-
+	 }
 }

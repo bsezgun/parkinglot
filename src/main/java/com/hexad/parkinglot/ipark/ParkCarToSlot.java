@@ -1,7 +1,6 @@
 package com.hexad.parkinglot.ipark;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import com.hexad.parkinglot.entity.Car;
 import com.hexad.parkinglot.entity.ResultPark;
@@ -21,7 +20,10 @@ public class ParkCarToSlot implements ITicket {
 		
 		
 		int[] slots=multiStoreyParking.getParkingSlotMap()
-		.stream().map(Car::getSlotNumber).sorted().mapToInt(BigDecimal::intValue).toArray();
+										.stream()
+										.map(Car::getSlotNumber)
+										.mapToInt(BigDecimal::intValue)
+										.toArray();
 		
 		int slotId=1;
 		for (int i : slots) {
@@ -36,7 +38,7 @@ public class ParkCarToSlot implements ITicket {
 		multiStoreyParking.getParkingSlotMap().add(car);
 		System.out.println("Allocated slot number: "+slotId);
 		
-		return new ResultPark("Allocated slot number: "+slotId ,Optional.of(car));
+		return new ResultPark("Allocated",car);
 	}
 	
 	
