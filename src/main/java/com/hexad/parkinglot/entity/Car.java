@@ -39,10 +39,9 @@ public class Car implements Comparable<Car>{
 		return slotNumber.compareTo(car.getSlotNumber());
 	}
 
-	
-
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.format("%-10s%-20s%-20s",slotNumber.toString(),registrationNumber,colour);
+	}
 }
