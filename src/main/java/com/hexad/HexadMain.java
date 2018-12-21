@@ -14,7 +14,7 @@ import com.hexad.parkinglot.util.Commands;
 
 public class HexadMain {
 
-	public static void main(String[] args) throws SlotIsNotEmpty {
+	public static void main(String[] args)  {
 		System.out.println("PARKING LOT STARTED");
 		Commands cmds=new Commands();
 		
@@ -48,23 +48,22 @@ public class HexadMain {
 			Scanner scanner = new Scanner(System.in);
 			String[] paramIn = scanner.nextLine().split(" ");
 			
+			ITicket iTicket=null;
+			try {
+				iTicket = cmds.getCommandsToExecute(paramIn[0]);
+			} catch (CommandNotFound e1) {
+				scanner.close();
+				System.out.println("You give a wrong command. System will forcibly closed.. :)");
+				System.exit(0);
+			}
 			
+			String[] params=new String[paramIn.length-1];
+			for(int i=0;i<params.length;i++)
+				params[i]=paramIn[i+1];
 			
 			try {
-				ITicket iTicket=cmds.getCommandsToExecute(paramIn[0]);
-				
-				String[] params=new String[paramIn.length-1];
-				for(int i=0;i<params.length;i++)
-					params[i]=paramIn[i+1];
-				
 				iTicket.execute(params);
-				
-				
-			} catch (CommandNotFound e) {
-				scanner.close();
-			} catch (NoSuchElementException e) {
-				
-			}
+			} catch (SlotIsNotEmpty e) {}
 		}
 	}
 }
